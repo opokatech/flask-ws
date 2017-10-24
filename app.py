@@ -11,8 +11,7 @@ def index():
 
 @socketio.on('connect')
 def test_connect():
-    print "connect"
-    # return False
+    return False
 
 
 if __name__ == '__main__':
