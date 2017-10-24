@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <script src="{{ url_for('static', filename='socket.io.min.js') }}"></script>
+    </head>
+<body>
+    <a href="#" id="idStart">Start test</a>.
+
+    <script>
+        document.getElementById('idStart').onclick = function(e) {
+            var delay = 100,
+                ws = io("ws://localhost:5000", {
+                    reconnectionDelay: delay,
+                    reconnectionDelayMax: delay
+                });
+        }
+    </script>
+</body>
+</html>
