@@ -1,5 +1,6 @@
 pkg-resources==0.0.0
 flask-socketio
+# use only one of those below
 eventlet
 #gevent
 #gevent-websocket
