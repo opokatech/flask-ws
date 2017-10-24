@@ -1,18 +1,59 @@
 <html>
     <head>
-        <script src="{{ url_for('static', filename='socket.io.min.js') }}"></script>
+        <title>Flask WS - testing refusing connections</title>
+        <script type='text/javascript' src='//code.jquery.com/jquery-3.2.1.min.js'></script>
+        <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js'></script>
+        <script type='text/javascript' charset='utf-8'>
+            var ws = null,
+                spanReconnects = null,
+                inpDelay = null,
+                btnStart = null,
+                btnStop = null;
+
+            $(document).ready(function() {
+                btnStart = $('#idStart');
+                btnStop = $('#idStop');
+                spanReconnects = $('#idReconnects');
+                inpDelay = $('#idDelay');
+
+                btnStart.on('click', function() {
+                    var delay = Number(inpDelay.val());
+
+                    if (delay < 50 || isNaN(delay)) {
+                        delay = 50;
+                    }
+
+                    inpDelay.val(delay);
+
+                    ws = io('ws://localhost:5000', {
+                        reconnectionDelay: delay,
+                        reconnectionDelayMax: delay
+                    });
+
+                    ws.on('reconnect_attempt', function() {
+                        var curVal = Number(spanReconnects.text());
+
+                        spanReconnects.text(curVal + 1);
+                    });
+
+                    btnStart.attr('disabled', 1);
+                    btnStop.removeAttr('disabled');
+                    spanReconnects.text('0');
+                });
+
+                btnStop.on('click', function() {
+                    ws.destroy();
+
+                    btnStart.removeAttr('disabled');
+                    btnStop.attr('disabled', 1);
+                });
+            });
+        </script>
     </head>
 <body>
-    <a href="#" id="idStart">Start test</a>.
-
-    <script>
-        document.getElementById('idStart').onclick = function(e) {
-            var delay = 100,
-                ws = io("ws://localhost:5000", {
-                    reconnectionDelay: delay,
-                    reconnectionDelayMax: delay
-                });
-        }
-    </script>
+    <button href='#' id='idStart'>Start test</button> reconnecting every <input style='width: 60px' id='idDelay'
+    value='200'></input> ms (minimum is 50).<br>
+    <button href='#' id='idStop' disabled>Stop test</button>
+    <p>Reconnections counter: <span id='idReconnects'></span></p>
 </body>
 </html>

@@ -3,6 +3,8 @@ from flask_socketio import SocketIO
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
+
 socketio = SocketIO(app)
 
 @app.route('/')
