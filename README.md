@@ -4,7 +4,7 @@ Testing tool
 **2017-11-13 UPDATE: with release 1.8.3 of python-socketio the bug got fixed.**
 
 This simple app tests memory leak problem which seems to occur when using flask-socketio + (eventlet, gevent) when
-incomming ws connection gets refused (for example because user is denied). It seems that memory usage on server grows.
+an incomming ws connection gets refused (for example because user is denied). It seems that memory usage on server grows.
 
 This tool provides easy setup to see that live.
 
