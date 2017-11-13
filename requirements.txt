@@ -12,10 +12,10 @@ flask-socketio==2.9.2
 flask==0.12.2             # via flask-socketio
 greenlet==0.4.12          # via eventlet
 itsdangerous==0.24        # via flask
-jinja2==2.9.6             # via flask
+jinja2==2.10              # via flask
 markupsafe==1.0           # via jinja2
 pkg-resources==0.0.0
 python-engineio==1.7.0    # via flask-socketio, python-socketio
-python-socketio==1.8.1    # via flask-socketio
+python-socketio==1.8.3    # via flask-socketio
 six==1.11.0               # via python-engineio, python-socketio
 werkzeug==0.12.2          # via flask
